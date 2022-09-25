@@ -1,76 +1,98 @@
-import React, { Component, useState, useEffect }  from 'react';
-import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator, Image, ScrollView, Switch, Alert, TouchableOpacity } from 'react-native'
+import React, { useState, useEffect } from 'react';
+import { View, FlatList, Text } from 'react-native';
 import axios from 'axios';
-import SearchBar from "react-native-dynamic-search-bar";
+import RecipeCard from './RecipeCard';
+import RecipeHeader from './RecipeHeader';
 
-export default function AllRecette({navigation}) {
+export default function AllRecette() {
   const [recette, setRecette] = useState([]);
-  const [searched, updateSearch] = useState("");
-  const [ready, Setready] = useState("none");
+  const [isLoading, setIsLoading] = useState(false);
+  const [noRecipe, setNoRecipe] = useState(null);
+  const [filterRecipe, setFilterRecipe] = useState({
+    filter: null,
+    valfiltre: null,
+  });
+
   async function getAllRecette() {
-    await axios.get('http://20.8.119.103:8080/AllRecette/' , {header: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json'}})
-    .then(res => {
-      setRecette(res.data.recettes);
-      Setready("yes");
-    }).catch((error) => {
-    });
+    setIsLoading(true);
+    await axios
+      .get('http://20.8.119.103:8080/AllRecette/', {
+        header: {
+          'Content-Type':
+            'application/x-www-form-urlencoded; charset=UTF-8;application/json',
+        },
+      })
+      .then((res) => {
+        setRecette(res.data.recettes);
+      })
+      .catch((error) => {});
+    setIsLoading(false);
   }
-  if (ready == "none" && recette != undefined && recette.length == 0) {
-    getAllRecette();
-  }
-  function ChangeListSearch (search) {
-    if (search != undefined || search != "") {
-       axios.post('http://20.8.119.103:8080/FiltreRecette/' ,{ filtre: "name",  "valfiltre": search}, {header: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json'}})
-      .then(res => {
-        if (res.data.recettes)
-          setRecette(res.data.recettes);
-        else {
-          console.log("jjjjjjjjjj\n");
-          setRecette([]);
+
+  const handleSearch = async (value) => {
+    setIsLoading(true);
+    await axios
+      .post(
+        'http://20.8.119.103:8080/FiltreRecette/',
+        { filtre: 'name', valfiltre: String(value).toLowerCase() },
+        {
+          header: {
+            'Content-Type':
+              'application/x-www-form-urlencoded; charset=UTF-8;application/json',
+          },
         }
-      }).catch((error) => {
-      });
+      )
+      .then((res) => {
+        setRecette(res.data.recettes);
+      })
+      .catch((error) => {});
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    getAllRecette();
+  }, []);
+
+  useEffect(async () => {
+    if (filterRecipe.filter && filterRecipe.valfiltre) {
+      setIsLoading(true);
+      await axios
+        .post(
+          'http://20.8.119.103:8080/FiltreRecette/',
+          { filtre: filterRecipe.filter, valfiltre: filterRecipe.valfiltre },
+          {
+            header: {
+              'Content-Type':
+                'application/x-www-form-urlencoded; charset=UTF-8;application/json',
+            },
+          }
+        )
+        .then((res) => {
+          setRecette(res.data.recettes);
+        })
+        .catch((error) => {});
+      setIsLoading(false);
+    } else {
+      getAllRecette();
     }
-  }
-  return(
-      <ScrollView>
-      <SearchBar
-        placeholder="Type Here..."
-        onChangeText={(text) => {
-        updateSearch(text);
-        ChangeListSearch(text);
-        }}
-        onClearPress={() => {
-          Setready("none");
-          getAllRecette();
-        }}
-        value={searched}
+  }, [filterRecipe]);
+
+  return (
+    <View>
+      <FlatList
+        data={recette}
+        renderItem={({ item }) => <RecipeCard data={item} />}
+        keyExtractor={(item) => item.id}
+        showsVerticalScrollIndicator={false}
+        ListHeaderComponent={
+          <RecipeHeader
+            onSearch={handleSearch}
+            filterRecipe={filterRecipe}
+            setFilterRecipe={setFilterRecipe}
+          />
+        }
       />
-        {recette.map((value, index) => 
-          <TouchableOpacity onPress={() => navigation.navigate('Recettes', value.id)}>
-          <Image style={{
-            marginTop: 20,
-            marginLeft : 85,
-            width: 200,
-            height: 200,
-            borderRadius : 20
-        }} source={{uri : value.image}} key={index}/>
-        <TouchableOpacity style={{
-            marginLeft : 85,
-            marginTop: -50,
-            position : 'relative',
-            width: 200,
-            minHeight : 50,
-            paddingTop : 10,
-            fontSize : 30,
-            borderWidth: 1,
-            borderRadius : 20,
-            borderColor : 'white',
-            backgroundColor : 'white'
-        }}>
-        <Text style={{fontSize : 20, textAlign: 'center'}} onc>{value.name}</Text></TouchableOpacity>
-        </TouchableOpacity>
-        )}
-      </ScrollView>
-    )
-  }
+      {setNoRecipe && <Text>{noRecipe}</Text>}
+    </View>
+  );
+}

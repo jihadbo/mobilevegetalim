@@ -12,7 +12,7 @@ export default class ModifProfile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {noterecette: 0, recette : [], ingredients : [], preparation: [], commentaires : [], comments : [
-          {id : 1, user : "jihad", comment : "good"},
+          // {id : 1, user : "jihad", comment : "good"},
           {id : 2, user : "rayan", comment : "bad"},
           {id : 3, user : "so", comment : "maybe"}
         ]};
@@ -91,7 +91,7 @@ render(){
             source={{uri: this.state.recette.image}}
           />
         </View>
-        <StarReview reviews={this.state.commentaires.length} ratings={this.state.noterecette}/>
+        {/* <StarReview reviews={this.state.commentaires.length} ratings={this.state.noterecette}/> */}
         <Text style={styles.yProfile}>Ingredients : </Text>
         {this.state.ingredients.map((value, index) => 
         <Text style={styles.ingredients} key={index}>- {value}</Text>
@@ -106,8 +106,8 @@ render(){
         <Text style={styles.yProfile}>Comments</Text>
         {this.state.commentaires.map((item,index) => 
             <View style={{border: "solid",
-            borderWidth: "2px",
-            borderRadius: "21px",
+            // borderWidth: "2px",
+            // borderRadius: "21px",
             borderColor: "black",
             padding : "3%",
             marginBottom : "3%"
@@ -118,7 +118,7 @@ render(){
                 flexDirection: "row",
                 marginLeft : 20,
               }}>
-              {this.DoStars(item.note)}
+              {/* {this.DoStars(item.note)} */}
               </View>
               </View>
               <Text> {item.com}{'\n'} </Text>
@@ -227,7 +227,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 250,
     marginTop: 20,
-    borderWidth: 1,
+    // // // // // // // // // borderWidth: 1,
     padding: 10,
     borderRadius: 5,
     borderColor: '#918c8c',
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     width: 250,
     marginTop: 15,
     marginBottom: 10,
-    borderWidth: 1,
+    // // // // // // // // borderWidth: 1,
     padding: 10,
     borderRadius: 5,
     borderColor: '#918c8c',
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
     width: 250,
     marginTop: 5,
     marginBottom: 10,
-    borderWidth: 1,
+    // // // // // // // borderWidth: 1,
     padding: 10,
     borderRadius: 5,
     borderColor: '#918c8c',
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     borderRadius: 15,
-    borderWidth: 1,
+    // // // // // // borderWidth: 1,
     marginBottom: 10,
     borderColor: "#f8f8f8",
     alignItems: 'center',
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
     width: "85%",
     marginTop: 25,
     height: 200,
-    borderWidth: 0,
+    // // // // // borderWidth: 0,
     borderColor: "#555"
   },
   signC: {
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: '#326ed5',
     borderRadius: 5,
-    borderWidth: 1,
+    // // // // borderWidth: 1,
     marginTop: 20,
     marginBottom: 10,
     borderColor: "#777",
@@ -332,7 +332,7 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: '#fff',
     borderRadius: 15,
-    borderWidth: 1,
+    // // // borderWidth: 1,
     marginBottom: 10,
     borderColor: "rgb(184, 31, 31)",
     alignItems: 'center',
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: '#FFFFFF',
     borderRadius: 5,
-    borderWidth: 1,
+    // // borderWidth: 1,
     marginTop: 10,
     borderColor: "#D32D35",
     alignItems: 'center',
@@ -362,7 +362,7 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: '#FFFFFF',
     borderRadius: 20,
-    borderWidth: 1,
+    // borderWidth: 1,
     marginTop: 19,
 
     borderColor: "#368BE7",

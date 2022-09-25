@@ -17,7 +17,7 @@ export default function Home({navigation}) {
           <TouchableOpacity onPress={() => navigation.navigate('Shop')} style={styles.button}>
             <Text style={{color: "#fff"}}>Shop</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate('Recettes', '9bd2d33f-a426-4b46-b814-19696f6960e7')} style={styles.button}>
+          <TouchableOpacity onPress={() => navigation.navigate('Recette', '9d54ec19-a160-4b49-b7c0-bd66333e71de')} style={styles.button}>
             <Text style={{color: "#fff"}}>Recettes</Text>
           </TouchableOpacity>
       </View>
