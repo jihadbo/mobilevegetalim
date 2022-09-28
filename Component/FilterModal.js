@@ -5,9 +5,9 @@ import AccordionList from './AccordionList';
 var durationFilter = {
   title: 'Duration',
   parameters: [
-    { content: 'Less than 5 minutes', value: 5, selected: false },
-    { content: 'Less than 15 minutes', value: 15, selected: false },
-    { content: 'Less than 30 minutes', value: 30, selected: false },
+    { content: 'Au moins 5 minutes', value: 5, selected: false },
+    { content: 'Au moins 15 minutes', value: 15, selected: false },
+    { content: 'Au moins 30 minutes', value: 30, selected: false },
   ],
   lockSelection: false,
   selectedFilterIndex: -1,
@@ -16,10 +16,11 @@ var durationFilter = {
 var ingredientFilter = {
   title: 'Ingédients',
   parameters: [
-    { content: 'Fromage', value: 'fromage', selected: false },
+    { content: 'Brocoli', value: 'brocoli', selected: false },
     { content: 'Oeuf', value: 'oeufs', selected: false },
-    { content: 'Fraise', value: 'fraise', selected: false },
-    { content: 'Boeuf', value: 'boeuf', selected: false },
+    { content: 'Saumon', value: 'saumon', selected: false },
+    { content: 'Tomate', value: 'tomate', selected: false },
+    { content: 'Riz', value: 'riz', selected: false },
   ],
   lockSelection: false,
   selectedFilterIndex: -1,
