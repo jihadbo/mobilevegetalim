@@ -1,54 +1,90 @@
+import React, { useState, useEffect } from 'react';
 import {
+  StyleSheet,
   View,
   Text,
-  ScrollView,
-  StyleSheet,
   Image,
+  ScrollView,
   TouchableOpacity,
 } from 'react-native';
-import { getStatusBarHeight } from 'react-native-status-bar-height';
-import React, { useEffect, useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import DatePicker from 'react-native-datepicker';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getStatusBarHeight } from 'react-native-status-bar-height';
+import Icon from 'react-native-dynamic-vector-icons';
+import StarReview from 'react-native-star-review';
 
-const Recette = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [recette, setRecette] = useState({});
-  const [ingredients, setIngredients] = useState([]);
-  const [preparation, setPreparation] = useState([]);
-  const [commentaires, setCommentaires] = useState([]);
-  const [notes, setNotes] = useState(0);
-  const navigation = useNavigation();
+export default class ModifProfile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      noterecette: 0,
+      recette: [],
+      ingredients: [],
+      preparation: [],
+      commentaires: [],
+      comments: [
+        // {id : 1, user : "jihad", comment : "good"},
+        { id: 2, user: 'rayan', comment: 'bad' },
+        { id: 3, user: 'so', comment: 'maybe' },
+      ],
+    };
+  }
+  // let comments = [
+  //   {id : 1, user : "jihad", comment : "good"},
+  //   {id : 2, user : "rayan", comment : "bad"},
+  //   {id : 3, user : "so", comment : "maybe"}
+  // ]
 
-  function setupData() {
-    let allReviews = [];
-    setIngredients([]);
-    setPreparation([]);
-    setCommentaires([]);
-    setNotes(0);
-    if (recette) {
-      recette.ingredients.split(';').map((value) => {
-        setIngredients((oldArray) => [...oldArray, value]);
-      });
-      recette.preparation.split('/').map((value) => {
-        setPreparation((oldArray) => [
-          ...oldArray,
-          { preparation: value, ref: React.createRef() },
-        ]);
-      });
-      allReviews = recette.commentaires.split(';');
-      commentaires.map((value) => {
-        let review = value.split('/');
-        allReviews.push({ name: review[0], note: review[1], com: review[2] });
-        setNotes(review[1]);
-      });
-      setNotes(notes / allReviews.length);
+  DoStars(stars) {
+    let container = [];
+    for (let index = 1; index < 6; index++) {
+      let starType = 'star';
+      if (index > stars) {
+        starType = 'staro';
+      }
+      container.push(
+        <Icon
+          key={index}
+          name={starType}
+          size={16}
+          type="AntDesign"
+          color={'#ffa114'}
+        />
+      );
     }
+    return container;
   }
 
-  async function getRecette(id) {
-    setIsLoading(true);
-    await axios
+  DoCommentaire() {
+    let recettes = [];
+    let ingredients = [];
+    let preparation = [];
+    let noterecettes = 0;
+    this.state.recette.ingredients.split(';').map((value) => {
+      ingredients.push(value);
+    });
+    this.state.recette.preparation.split('/').map((value) => {
+      preparation.push(value);
+    });
+    let com = this.state.recette.commentaires.split(';');
+    com.map((value) => {
+      let test = value.split('/');
+      recettes.push({ name: test[0], note: test[1], com: test[2] });
+      noterecettes += parseInt(test[1]);
+    });
+    noterecettes /= com.length;
+    // console.log(this.state.recette.image);
+    this.setState({
+      noterecette: noterecettes,
+      preparation: preparation,
+      ingredients: ingredients,
+      commentaires: recettes,
+    });
+  }
+
+  async GetRecette(id) {
+    axios
       .post(
         'http://20.8.119.103:8080/FiltreRecette/',
         { filtre: 'id', valfiltre: id },
@@ -61,115 +97,101 @@ const Recette = (props) => {
       )
       .then((res) => {
         if (res.data.recettes) {
-          setRecette(res.data.recettes[0]);
+          this.setState({ recette: res.data.recettes[0] });
+          this.DoCommentaire();
+        } else {
+          this.setState({ recette: [] });
         }
       })
       .catch((error) => {});
-    setIsLoading(false);
   }
-
-  useEffect(() => {
-    getRecette(props.route.params.id);
-  }, []);
-
-  useEffect(() => {
-    if (Object.keys(recette).length) {
-      setupData();
-    }
-  }, [recette]);
-
-  return (
-    <ScrollView style={styles.container}>
-      <View style={styles.row}>
-        {/* <StepByStepModal
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-          preparation={preparation}
-          recipeName={recette.name}
-        /> */}
-        <View style={styles.center}>
-          <Text style={styles.recipesName}>
-            {recette.name}
-            {'\n'}
-          </Text>
-          <Image
-            style={{ width: '60%', height: 200, marginBottom: 20 }}
-            source={{ uri: recette.image }}
-          />
-          <TouchableOpacity
-            style={{
-              width: '60%',
-              backgroundColor: '#103e5c',
-              padding: 15,
-              borderRadius: 30,
-              flexDirection: 'row',
-              justifyContent: 'center',
-            }}
-            onPress={() =>
-              navigation.navigate('StepByStep', {
-                preparation: preparation,
-                recipeName: recette.name,
-                id: props.route.params.id,
-              })
-            }
-          >
-            <Text
-              style={{
-                color: 'white',
-                fontSize: 15,
-              }}
-            >
-              Commencer la recette
+  componentDidMount() {
+    this.GetRecette(this.props.route.params);
+  }
+  render() {
+    return (
+      <ScrollView style={styles.container}>
+        <View style={styles.row}>
+          <View style={styles.center}>
+            <Text style={styles.recipesName}>
+              {this.state.recette.name}
+              {'\n'}
             </Text>
-          </TouchableOpacity>
-        </View>
-        <Text style={styles.yProfile}>Ingredients : </Text>
-        {ingredients.map((value, index) => (
-          <Text style={styles.ingredients} key={index}>
-            - {value}
-          </Text>
-        ))}
-        <Text style={styles.yProfile}>Steps : </Text>
-        {preparation.map((value, index) => (
-          <Text style={styles.ingredients} key={index}>
-            {index + 1} - {value.preparation}
-          </Text>
-        ))}
-        <View style={styles.yProfileComment}>
-          <Text style={styles.yProfile}>Comments</Text>
-          {commentaires.map((item, index) => (
-            <View
+            <Image
+              style={{ width: '60%', height: 200, marginBottom: 20 }}
+              source={{ uri: this.state.recette.image }}
+            />
+            <TouchableOpacity
               style={{
-                border: 'solid',
-                borderWidth: 2,
-                borderRadius: 21,
-                borderColor: 'black',
-                padding: '3%',
-                marginBottom: '3%',
+                width: '60%',
+                backgroundColor: '#103e5c',
+                padding: 15,
+                borderRadius: 30,
+                flexDirection: 'row',
+                justifyContent: 'center',
               }}
-              key={index}
             >
-              <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                <Text> {item.name} </Text>
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    marginLeft: 20,
-                  }}
-                ></View>
-              </View>
-              <Text>
-                {' '}
-                {item.com}
-                {'\n'}{' '}
+              <Text
+                style={{
+                  color: 'white',
+                  fontSize: 15,
+                }}
+              >
+                Commencer la recette
               </Text>
-            </View>
+            </TouchableOpacity>
+          </View>
+          {/* <StarReview reviews={this.state.commentaires.length} ratings={this.state.noterecette}/> */}
+          <Text style={styles.yProfile}>Ingredients : </Text>
+          {this.state.ingredients.map((value, index) => (
+            <Text style={styles.ingredients} key={index}>
+              - {value}
+            </Text>
           ))}
+          <Text style={styles.yProfile}>Steps : </Text>
+          {this.state.preparation.map((value, index) => (
+            <Text style={styles.ingredients} key={index}>
+              {index + 1} - {value}
+            </Text>
+          ))}
+          <View style={styles.yProfileComment}>
+            <Text style={styles.yProfile}>Comments</Text>
+            {this.state.commentaires.map((item, index) => (
+              <View
+                style={{
+                  border: 'solid',
+                  borderWidth: 2,
+                  borderRadius: 21,
+                  borderColor: 'black',
+                  padding: '3%',
+                  marginBottom: '3%',
+                }}
+                key={index}
+              >
+                <View style={{ flexDirection: 'row', marginBottom: 10 }}>
+                  <Text> {item.name} </Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      marginLeft: 20,
+                    }}
+                  >
+                    {/* {this.DoStars(item.note)} */}
+                  </View>
+                </View>
+                <Text>
+                  {' '}
+                  {item.com}
+                  {'\n'}{' '}
+                </Text>
+              </View>
+            ))}
+          </View>
         </View>
-      </View>
-    </ScrollView>
-  );
-};
+      </ScrollView>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   main: {
@@ -422,5 +444,3 @@ const styles = StyleSheet.create({
     width: 230,
   },
 });
-
-export default Recette;

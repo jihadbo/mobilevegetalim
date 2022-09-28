@@ -1,50 +1,61 @@
-import React, { Component, useState, useEffect }  from 'react';
-import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator, Image, ScrollView, Switch, Alert, TouchableOpacity } from 'react-native'
+import React, { Component, useState, useEffect } from 'react';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  Button,
+  Text,
+  FlatList,
+  ActivityIndicator,
+  Image,
+  ScrollView,
+  Switch,
+  Alert,
+  TouchableOpacity,
+} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SignIn from './Component/SignIn'
-import SignUp from "./Component/SignUp"
-import MyWebComponent from "./Component/Webview"
-import Conversion from "./Component/Conversion"
-import Profile from "./Component/Profile"
-import Home from './Component/Home'
-import ModifProfile from "./Component/ModifProfil"
-import AllRecette from './Component/AllRecette.js'
-import Recette from './Component/Recette'
+import SignIn from './Component/SignIn';
+import SignUp from './Component/SignUp';
+import MyWebComponent from './Component/Webview';
+import Conversion from './Component/Conversion';
+import Profile from './Component/Profile';
+import Home from './Component/Home';
+import ModifProfile from './Component/ModifProfil';
+import AllRecette from './Component/AllRecette.js';
+import Recette from './Component/Recette';
 import Selectionned from './Component/SelectionnedBonAchat';
 import Confirmed from './Component/ConfirmedBonAchat';
 import Shop from './Component/Shop';
+import StepByStepModal from './Component/StepByStepModal';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-      return (
-        <NavigationContainer>
-          <Stack.Navigator>
-          <Stack.Screen name="home" component={Home} />
-            <Stack.Screen
-              name="SignIn"
-              component={SignIn}
-            />
-            <Stack.Screen
-              name="Recette"
-              component={AllRecette}
-            />
-            <Stack.Screen
-              name="Recettes"
-              component={Recette}
-            />
-            <Stack.Screen name="Shop" component={Shop} />
-            <Stack.Screen name="Profile" component={Profile} />
-            <Stack.Screen name="SignUp" component={SignUp} />
-               <Stack.Screen name="Selectionned" component={Selectionned} />
-               <Stack.Screen name="Confirmed" component={Confirmed} />
-            <Stack.Screen name="Conversion" component={Conversion}/>
-            <Stack.Screen name="ModifProfile" component={ModifProfile}/>
-            <Stack.Screen name="Webview" component={MyWebComponent}/>
-          </Stack.Navigator>
-        </NavigationContainer>
-      );
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen name="SignIn" component={SignIn} />
+        <Stack.Screen name="Recette" component={AllRecette} />
+        <Stack.Screen name="Recettes" component={Recette} />
+        <Stack.Screen name="StepByStep" component={StepByStepModal} />
+        <Stack.Screen name="Shop" component={Shop} />
+        <Stack.Screen name="Profile" component={Profile} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Selectionned" component={Selectionned} />
+        <Stack.Screen name="Confirmed" component={Confirmed} />
+        <Stack.Screen name="Conversion" component={Conversion} />
+        <Stack.Screen name="ModifProfile" component={ModifProfile} />
+        <Stack.Screen name="Webview" component={MyWebComponent} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -56,19 +67,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 20,
     marginBottom: 10,
-    borderColor: "#777",
+    borderColor: '#777',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: "#000",
+    shadowColor: '#000',
     shadowOffset: {
-        width: 0,
-        height: 3,
+      width: 0,
+      height: 3,
     },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
     elevation: 6,
   },
-})
+});
 
 // import { StatusBar } from 'expo-status-bar';
 // import React, { useState, useEffect } from 'react'
@@ -80,7 +91,6 @@ const styles = StyleSheet.create({
 // // import recipes from './recipes';
 // // import comments from './comments';
 // // import shop from './shop';
-
 
 // export default function App() {
 //   const [password, setPassword] = useState("password");
