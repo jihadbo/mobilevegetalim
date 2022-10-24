@@ -81,12 +81,6 @@ const Recette = (props) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.row}>
-        {/* <StepByStepModal
-          openModal={openModal}
-          setOpenModal={setOpenModal}
-          preparation={preparation}
-          recipeName={recette.name}
-        /> */}
         <View style={styles.center}>
           <Text style={styles.recipesName}>
             {recette.name}
@@ -99,7 +93,7 @@ const Recette = (props) => {
           <TouchableOpacity
             style={{
               width: '60%',
-              backgroundColor: '#103e5c',
+              backgroundColor: '#BDE9A8',
               padding: 15,
               borderRadius: 30,
               flexDirection: 'row',
@@ -115,7 +109,7 @@ const Recette = (props) => {
           >
             <Text
               style={{
-                color: 'white',
+                color: 'black',
                 fontSize: 15,
               }}
             >
@@ -194,7 +188,6 @@ const styles = StyleSheet.create({
     paddingTop: getStatusBarHeight(),
   },
   center: {
-    marginTop: -40,
     marginBottom: 15,
     justifyContent: 'center',
     alignItems: 'center',

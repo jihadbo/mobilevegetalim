@@ -28,6 +28,7 @@ import Selectionned from './Component/SelectionnedBonAchat';
 import Confirmed from './Component/ConfirmedBonAchat';
 import Shop from './Component/Shop';
 import StepByStepModal from './Component/StepByStepModal';
+import Quizz from './Component/Quizz';
 import { LogBox } from 'react-native';
 
 LogBox.ignoreLogs([
@@ -45,6 +46,7 @@ export default function App() {
         <Stack.Screen name="Recette" component={AllRecette} />
         <Stack.Screen name="Recettes" component={Recette} />
         <Stack.Screen name="StepByStep" component={StepByStepModal} />
+        <Stack.Screen name="Quizz" component={Quizz} />
         <Stack.Screen name="Shop" component={Shop} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="SignUp" component={SignUp} />
@@ -53,6 +55,7 @@ export default function App() {
         <Stack.Screen name="Conversion" component={Conversion} />
         <Stack.Screen name="ModifProfile" component={ModifProfile} />
         <Stack.Screen name="Webview" component={MyWebComponent} />
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

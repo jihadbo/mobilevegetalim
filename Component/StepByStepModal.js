@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-// import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -141,21 +141,12 @@ const StepByStepModal = (props) => {
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
-          // marginTop: 20,
           padding: 5,
         }}
       >
-        {/* <AntDesign
-          onPress={() =>
-            navigation.navigate('Recettes', { id: props.route.params.id })
-          }
-          name="closecircle"
-          size={35}
-          color={'#103e5c'}
-        /> */}
         <View
           style={{
-            backgroundColor: '#103e5c',
+            backgroundColor: '#BDE9A8',
             flexDirection: 'row',
             minHeight: '5%',
             height: 'auto',
@@ -170,10 +161,11 @@ const StepByStepModal = (props) => {
             style={{
               fontSize: 20,
               textTransform: 'uppercase',
-              color: 'white',
+              color: 'black',
               margin: 10,
               width: '80%',
               textAlign: 'center',
+              fontWeight: 'bold',
             }}
           >
             {props.route.params.recipeName}
@@ -210,6 +202,7 @@ const StepByStepModal = (props) => {
             >
               <Text
                 style={{
+                  width: '100%',
                   fontSize: 20,
                   backgroundColor: 'white',
                   padding: 20,
@@ -227,6 +220,51 @@ const StepByStepModal = (props) => {
               >
                 {item.preparation}
               </Text>
+              {/[0-9]+[ ]min/g.test(item.preparation) && (
+                <View
+                  style={{
+                    marginVertical: 45,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      fontStyle: 'italic',
+                      fontWeight: 'bold',
+                    }}
+                  >
+                    Rien à faire en attendant ? Vous pouvez tester vos
+                    connaissances pour patienter :
+                  </Text>
+                  <TouchableOpacity
+                    onPress={() => navigation.navigate('Quizz')}
+                    style={{
+                      backgroundColor: '#cae8ff',
+                      padding: 15,
+                      borderRadius: 20,
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      marginVertical: 20,
+                      flexDirection: 'row',
+                    }}
+                  >
+                    <View></View>
+                    <Text
+                      style={{
+                        fontSize: 20,
+                      }}
+                    >
+                      Démarrer le Quizz
+                    </Text>
+                    <MaterialCommunityIcons
+                      name="head-question"
+                      style={{
+                        fontSize: 30,
+                      }}
+                    />
+                  </TouchableOpacity>
+                </View>
+              )}
             </View>
           );
         }}
