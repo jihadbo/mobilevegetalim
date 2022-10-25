@@ -23,6 +23,8 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import StepByStepModal from './Component/StepByStepModal';
 import Quizz from './Component/Quizz';
 import { LogBox } from 'react-native';
+import AdminSignIn from './Component/AdminSignIn'
+import Admin from './Component/Admin'
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -74,6 +76,14 @@ export default function App() {
             <Stack.Screen
               name="SignIn"
               component={SignIn}
+            />
+             <Stack.Screen
+              name="AdminSignIn"
+              component={AdminSignIn}
+            />
+            <Stack.Screen
+              name="Admin"
+              component={Admin}
             />
             <Stack.Screen
               name="Recette"
