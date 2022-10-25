@@ -67,7 +67,7 @@ export default function Home({navigation}) {
                <Image style={{width: 100, height: 100}}
                  source={{uri: item.image}}
                />
-               <Text style={{fontStyle: 'bold', fontSize: 16}}> {'\n'} {item.name} </Text>
+               <Text style={{fontWeight: 'bold', fontSize: 16}}> {'\n'} {item.name} </Text>
                <TouchableOpacity onPress={() => navigation.navigate('Recettes', item.id)} style={styles.button}>
                  <Text style={{color: "#fff"}}>Voir la recette</Text>
                </TouchableOpacity>
@@ -78,10 +78,9 @@ export default function Home({navigation}) {
         <View style={{borderColor: '#515151', borderBottomWidth: 1, borderTopWidth: 1}}>
           <Text style={styles.recettesText}> {'\n'}🔥 Bons plans en tendance 🔥{'\n'}</Text>
         </View>
-
          <FlatList
            data={data}
-          renderItem={({item}) => {return (
+            renderItem={({item}) => {return (
             <View style={{border: "solid",
                 width: 200,
                 borderTopWidth: 3,
@@ -92,7 +91,7 @@ export default function Home({navigation}) {
                 alignItems: 'center',
                 marginBottom : 3,
             }}>
-              <Text style={{fontStyle: 'bold', fontSize: 16}}> {'\n'} {item.shop} {'\n'} </Text>
+              <Text style={{fontWeight: 'bold', fontSize: 16}}> {'\n'} {item.shop} {'\n'} </Text>
               <Image style={{width: 100, height: 100}}
                 source={{uri: item.img}}
               />
@@ -103,7 +102,7 @@ export default function Home({navigation}) {
               </TouchableOpacity>
             </View>
           )}}
-          keyExtractor={(item) => item.id}
+          keyExtractor={() => Math.random()}
         />
         </View>
         <View style={styles.bottom}>
