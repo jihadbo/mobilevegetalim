@@ -62,6 +62,19 @@ const styles = StyleSheet.create({
         shadowRadius: 4.65,
         elevation: 6,
       },
+      buttonC: {
+        width: 160,
+        height: 30,
+        backgroundColor: '#cc0000',
+        borderRadius: 20,
+        marginTop: 20,
+        marginBottom: 10,
+        borderColor: "#777",
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: "#000",
+        elevation: 6,
+      },
 })
 
 export default function SignIn ({ navigation }) {
@@ -94,5 +107,8 @@ export default function SignIn ({ navigation }) {
           </View>
           <GoogleSocialButton onPress={() => navigation.navigate('Webview', {url : 'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=260750013099-p1f5oukdqhvc59agmmsvof8ri15k5ga2.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Ftestapivegetalim.westeurope.cloudapp.azure.com%3A8080%2FOauthPage&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&access_type=offline&prompt=consent&flowName=GeneralOAuthFlow'})}/>
           <DiscordSocialButton onPress={() => navigation.navigate('Webview', {url : "https://discord.com/oauth2/authorize?client_id=966021079934042192&redirect_uri=http://testapivegetalim.westeurope.cloudapp.azure.com:8080/OauthPage&response_type=token&scope=email"})}/>
+          <TouchableOpacity onPress={() => navigation.navigate('AdminSignIn')} style={styles.buttonC}>
+            <Text style={{color: "#fff"}}>ADMIN</Text>
+          </TouchableOpacity>
         </View>);
 }

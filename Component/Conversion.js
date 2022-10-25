@@ -89,7 +89,20 @@ input: {
       marginLeft: 10,
       marginRight: 10,
       marginTop: 20
-  }
+  },
+  buttonC: {
+    width: 160,
+    height: 30,
+    backgroundColor: '#8ECF6F',
+    borderRadius: 20,
+    marginTop: 20,
+    marginBottom: 10,
+    borderColor: "#777",
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: "#000",
+    elevation: 6,
+  },
 });
 
 export default function Conversion({navigation}){
@@ -166,7 +179,12 @@ export default function Conversion({navigation}){
                     ]}
                 />
                 <Text style={styles.textconversion}>{equivaut}</Text>
+                <View style={{  alignItems: 'center', justifyContent: 'center'}}>
+                  <TouchableOpacity onPress={() => navigation.navigate('Calories')} style={styles.buttonC}>
+                    <Text style={{color: "#fff"}}>Calcul Calories</Text>
+                  </TouchableOpacity>
+                </View>
             </View>
         </View>
     )
-} 
+}

@@ -1,32 +1,25 @@
-import React, { Component, useState, useEffect } from 'react';
-import {
-  StyleSheet,
-  View,
-  TextInput,
-  Button,
-  Text,
-  FlatList,
-  ActivityIndicator,
-  Image,
-  ScrollView,
-  Switch,
-  Alert,
-  TouchableOpacity,
-} from 'react-native';
+import React, { Component, useState, useEffect }  from 'react';
+import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator, Image, ScrollView, Switch, Alert, TouchableOpacity } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SignIn from './Component/SignIn';
-import SignUp from './Component/SignUp';
-import MyWebComponent from './Component/Webview';
-import Conversion from './Component/Conversion';
-import Profile from './Component/Profile';
-import Home from './Component/Home';
-import ModifProfile from './Component/ModifProfil';
-import AllRecette from './Component/AllRecette.js';
-import Recette from './Component/Recette';
+import SignIn from './Component/SignIn'
+import SignUp from "./Component/SignUp"
+import MyWebComponent from "./Component/Webview"
+import Conversion from "./Component/Conversion"
+import Profile from "./Component/Profile"
+import Home from './Component/Home'
+import ModifProfile from "./Component/ModifProfil"
+import AllRecette from './Component/AllRecette.js'
+import Recette from './Component/Recette'
 import Selectionned from './Component/SelectionnedBonAchat';
 import Confirmed from './Component/ConfirmedBonAchat';
 import Shop from './Component/Shop';
+import AccueilBonPlan from './Component/AccueilBonPlan'
+import AddBonPlan from './Component/AddBonPlan'
+import Calories from './Component/Calories'
+import Newsletter from './Component/Newsletter';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import StepByStepModal from './Component/StepByStepModal';
 import Quizz from './Component/Quizz';
 import { LogBox } from 'react-native';
@@ -34,31 +27,88 @@ import { LogBox } from 'react-native';
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
 ]);
+const Tab = createBottomTabNavigator();
 
 const Stack = createNativeStackNavigator();
 
-export default function App() {
+function MyTabs() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="home" component={Home} />
-        <Stack.Screen name="SignIn" component={SignIn} />
-        <Stack.Screen name="Recette" component={AllRecette} />
-        <Stack.Screen name="Recettes" component={Recette} />
-        <Stack.Screen name="StepByStep" component={StepByStepModal} />
-        <Stack.Screen name="Quizz" component={Quizz} />
-        <Stack.Screen name="Shop" component={Shop} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Selectionned" component={Selectionned} />
-        <Stack.Screen name="Confirmed" component={Confirmed} />
-        <Stack.Screen name="Conversion" component={Conversion} />
-        <Stack.Screen name="ModifProfile" component={ModifProfile} />
-        <Stack.Screen name="Webview" component={MyWebComponent} />
-        
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator initialRouteName="home"
+      screenOptions={{
+        tabBarActiveTintColor: 'green',
+      }}
+    >
+      <Tab.Screen name="Home" component={Home}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="home" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen name="Shop" component={Shop} 
+        options={{
+          tabBarLabel: 'Shop',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="shopping" color={color} size={size} />
+          ),
+        }}
+      />
+      <Tab.Screen name="Newsletter" component={Newsletter} 
+        options={{
+          tabBarLabel: 'Newsletter',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons name="email-newsletter" color={color} size={size} />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
+}
+
+export default function App() {
+      return (
+        <NavigationContainer>
+          <Stack.Navigator>
+          <Stack.Screen name="home" component={Home, MyTabs} options={{ headerShown: false }} />
+            <Stack.Screen
+              name="SignIn"
+              component={SignIn}
+            />
+            <Stack.Screen
+              name="Recette"
+              component={AllRecette}
+            />
+            <Stack.Screen
+              name="AddBonPlan"
+              component={AddBonPlan}
+            />
+            <Stack.Screen
+              name="Recettes"
+              component={Recette}
+            />
+            <Stack.Screen
+              name="AccueilBonPlan"
+              component={AccueilBonPlan}
+            />
+            <Stack.Screen
+              name="Calories"
+              component={Calories}
+            />
+            <Stack.Screen name="StepByStep" component={StepByStepModal} />
+          <Stack.Screen name="Quizz" component={Quizz} />
+            <Stack.Screen name="Shop" component={Shop} />
+            <Stack.Screen name="Profile" component={Profile} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+              <Stack.Screen name="Selectionned" component={Selectionned} />
+              <Stack.Screen name="Confirmed" component={Confirmed} />
+            <Stack.Screen name="Conversion" component={Conversion}/>
+            <Stack.Screen name="ModifProfile" component={ModifProfile}/>
+            <Stack.Screen name="Webview" component={MyWebComponent}/>
+            <Stack.Screen name="Newsletter" component={Newsletter} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      );
 }
 
 const styles = StyleSheet.create({
@@ -70,19 +120,19 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     marginTop: 20,
     marginBottom: 10,
-    borderColor: '#777',
+    borderColor: "#777",
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
-      width: 0,
-      height: 3,
+        width: 0,
+        height: 3,
     },
     shadowOpacity: 0.27,
     shadowRadius: 4.65,
     elevation: 6,
   },
-});
+})
 
 // import { StatusBar } from 'expo-status-bar';
 // import React, { useState, useEffect } from 'react'
@@ -94,6 +144,7 @@ const styles = StyleSheet.create({
 // // import recipes from './recipes';
 // // import comments from './comments';
 // // import shop from './shop';
+
 
 // export default function App() {
 //   const [password, setPassword] = useState("password");

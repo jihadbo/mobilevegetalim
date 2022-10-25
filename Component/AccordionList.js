@@ -33,8 +33,8 @@ const FilterParameter = ({
     <TouchableOpacity key={index} onPress={() => handleOnPress()}>
       <Text
         style={{
-          backgroundColor: params.selected ? '#103e5c' : 'white',
-          color: params.selected ? 'white' : '#103e5c',
+          backgroundColor: params.selected ? 'black' : 'white',
+          color: params.selected ? 'white' : 'black',
           fontSize: 18,
           marginRight: 10,
           marginBottom: 10,
@@ -67,7 +67,7 @@ const AccordionList = ({
     >
       <View style={styles.headerContainer}>
         <View style={styles.titleContainer}>
-          <MaterialCommunityIcons name="timer-sand" size={30} color="#103e5c" />
+          <MaterialCommunityIcons name="timer-sand" size={30} />
           <Text style={styles.title}>{filterData.title}</Text>
         </View>
 
@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
   arrowIcon: {
     marginLeft: 20,
     fontSize: 20,
-    color: '#103e5c',
   },
   headerContainer: {
     flexDirection: 'row',

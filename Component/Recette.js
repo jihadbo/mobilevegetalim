@@ -69,7 +69,7 @@ const Recette = (props) => {
   }
 
   useEffect(() => {
-    getRecette(props.route.params.id);
+    getRecette(props.route.params);
   }, []);
 
   useEffect(() => {

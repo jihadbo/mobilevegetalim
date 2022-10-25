@@ -2,16 +2,19 @@ import React, { useState, Component } from 'react'
 import { StyleSheet, View, FlatList, Button, Text, ActivityIndicator, Image, ScrollView, Switch, Alert, TouchableOpacity } from 'react-native'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Icon from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import AllRecette from './AllRecette';
 import { render } from 'react-dom';
 import {getStatusBarHeight} from "react-native-status-bar-height";
+// import { Icon } from "@rneui/themed";
+// import {thumbs-up} from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 export default class Shop extends Component {
     constructor(props) {
       super(props);
-      this.state = { shop : [{img : "https://upload.wikimedia.org/wikipedia/fr/9/9e/Logo_Biocoop2018.png", shop: "Biocoop", reduction : 10, description : "-10% sur tous la articles en échange de 100 points"} , {img : "https://upload.wikimedia.org/wikipedia/fr/9/9e/Logo_Biocoop2018.png", shop: "Biocoop", reduction : 25, description : "-25% sur tous la articles en échange de 250 points"}, {img : "https://upload.wikimedia.org/wikipedia/fr/9/9e/Logo_Biocoop2018.png", shop: "Biocoop", reduction : 50, description : "-50% sur tous la articles en échange de 500 points"}]};
+      this.state = {pressed: false, shop : [{ click: false, click2:false, compteur: 0, img : "https://www.lacolleraye.fr/wp-content/uploads/Logo-Biocoop.png", shop: "Biocoop", reduction : 10, description : "-10% sur tous la articles en échange de 100 points"} , {click: false, click2:false, img : "https://www.lacolleraye.fr/wp-content/uploads/Logo-Biocoop.png", shop: "Biocoop", compteur: 0, reduction : 25, description : "-25% sur tous la articles en échange de 250 points"}, {click: false, click2:false, img : "https://www.lacolleraye.fr/wp-content/uploads/Logo-Biocoop.png", shop: "Biocoop", compteur: 0, reduction : 50, description : "-50% sur tous la articles en échange de 500 points"}]};
     }
     async getToken() {
       const values = await AsyncStorage.getItem('@token')
@@ -19,6 +22,10 @@ export default class Shop extends Component {
       this.setState({token : values});
       this.getData();
     }
+    onButtonPress = () => {
+      this.setState(!pressed)
+    }
+
     async getData() {
       let tester = [];
       console.log("jihad\n");
@@ -38,7 +45,7 @@ export default class Shop extends Component {
                 console.log(value);
               await axios.post('http://20.8.119.103:8080/FiltreRecette', { filtre: "id",  valfiltre: value}, {header: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json'}})
               .then(res => {
-                if (res.data.recettes){ 
+                if (res.data.recettes){
                   tester.push(res.data.recettes[0]);
                   this.setState({recettefav : tester})
                 }
@@ -70,33 +77,57 @@ export default class Shop extends Component {
                     alignItems: 'center',
                 }}><Text>1000 points disponible{'\n'}</Text></View>
               </View>
-             <FlatList
-               data={this.state.shop}
-              renderItem={({item}) => {return (
-                <View style={{border: "solid",
-                    borderWidth: "2px",
-                    borderRadius: "21px",
-                    borderColor: "black",
-                    padding : "3%",
-                    paddingTop : "12%",
-                    marginBottom : 10,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    // marginBottom : "3%"
-                }}>
-                  <Image style={{width: "80%", height: 100}}
-                    source={{uri: item.img}}
-                  />
-                  <Text style={styles.bons}> {'\n'} {item.shop} -{item.reduction}%</Text>
-                  <Text> {item.description} </Text>
-                  <TouchableOpacity onPress={() => {this.props.navigation.navigate('Selectionned', {remise : item.reduction})}} style={styles.button}>
-                    <Text style={{color: "#fff"}}>Séléctionner</Text>
-                  </TouchableOpacity>
-                  <Text> {'\n'} {'\n'} </Text>
-                </View>
-              )}}
-              keyExtractor={(item) => item.id}
-            />
+              {this.state.shop.map((item,i) =>
+                <TouchableOpacity key={i} style={{border: "solid",
+                borderWidth: "2px",
+                borderRadius: "21px",
+                borderColor: "black",
+                padding : "3%",
+                paddingTop : "12%",
+                marginBottom : 10,
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+              <Image style={{width: "80%", height: 100}}
+                source={{uri: item.img}}
+              />
+              <Text style={styles.bons}> {'\n'} {item.shop} -{item.reduction}%</Text>
+              <Text> {item.description} </Text>
+              <TouchableOpacity onPress={() => {this.props.navigation.navigate('Selectionned', {remise : item.reduction})}} style={styles.button}>
+                <Text style={{color: "#fff"}}>Séléctionner</Text>
+              </TouchableOpacity>
+              <Text> {'\n'} {'\n'} </Text>
+               <View style={styles.box}>
+                <TouchableOpacity
+                onPress={() =>  {
+                  let array2 = this.state.shop;
+                  if (!array2[i].click)
+                      array2[i].compteur += 1;
+                  array2[i].click = true
+                  array2[i].click2 = false
+                  this.setState({shop : array2})
+                  }}>
+                <Icon name="thumbs-up" size={30} style={item.click ? styles.icon : styles.iconalt} />
+                {/* <Icon name="thumbs-up" size={30} style={[this.state.pressed ? styles.icon : styles.iconalt]} /> */}
+                </TouchableOpacity>
+                <Text>{item.compteur}</Text>
+                <TouchableOpacity
+                onPress={() =>  {
+                  let array2 = this.state.shop;
+                  if (!array2[i].click2)
+                      array2[i].compteur -= 1;
+                  array2[i].click2 = true
+                  array2[i].click = false
+                  this.setState({shop : array2})
+                  }}
+                  >
+                <Icon name="thumbs-down" size={30} style={item.click2 ? styles.icon2 : styles.iconalt} />
+                {/* <Icon name="thumbs-down" size={30} style={[this.state.pressed ? styles.icon2 : styles.iconalt]} /> */}
+                </TouchableOpacity>
+
+               </View>
+            </TouchableOpacity>
+               )}
           </View>
         </ScrollView>
     );}
@@ -118,6 +149,24 @@ const styles = StyleSheet.create({
     },
     container : {
         paddingTop: getStatusBarHeight(),
+      },
+      box : {
+        // backgroundColor: 'blue',
+        paddingBottom: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: 100,
+        alignItems: "center",
+        // marginTop: 0,
+      },
+      icon: {
+        color: "green"
+      },
+      icon2: {
+        color: "red"
+      },
+      iconalt: {
+        color: "black"
       },
     tinyLogo: {
       width: 100,
@@ -331,7 +380,7 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       borderWidth: 1,
       marginTop: 19,
-  
+
       borderColor: "#38CA40",
       alignItems: 'center',
       justifyContent: 'center',
