@@ -1,16 +1,17 @@
 import React, { useState, Component } from 'react'
-import { StyleSheet, View, FlatList, Button, Text, ActivityIndicator, Image, ScrollView, Switch, Alert, TouchableOpacity, ScrollViewBase } from 'react-native'
+import { StyleSheet, View, FlatList, Button, Text, ActivityIndicator, Image, ScrollView, Switch, Alert, TouchableOpacity, ScrollViewBase, AppRegistry, Dimensions, processColor } from 'react-native'
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/AntDesign';
 import AllRecette from './AllRecette';
 import { render } from 'react-dom';
+import { BarChart, LineChart, PieChart, LineChartBicolor } from "react-native-gifted-charts";
 
 export default class Home extends Component {
     constructor(props) {
       super(props);
-      this.state = { token : '', email : "", password : "********", birthdate: "", idrecette : [] , recettefav : []};
-    }
+      this.state = { token : '', email : "", password : "********", birthdate: "", idrecette : [] , recettefav : []}
+}
     async getToken() {
       const values = await AsyncStorage.getItem('@token')
       console.log(values);
@@ -36,7 +37,7 @@ export default class Home extends Component {
                 console.log(value);
               await axios.post('http://20.8.119.103:8080/FiltreRecette', { filtre: "id",  valfiltre: value}, {header: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json'}})
               .then(res => {
-                if (res.data.recettes){ 
+                if (res.data.recettes){
                   tester.push(res.data.recettes[0]);
                   this.setState({recettefav : tester})
                 }
@@ -47,7 +48,28 @@ export default class Home extends Component {
     componentDidMount() {
       this.getToken();
     }
+
     render() {
+      const data = [
+    {value: 1860, label: 'L'},
+    {value: 2455, label: 'M', frontColor: '#177AD5'},
+    {value: 2000, label: 'M', frontColor: '#177AD5'},
+    {value: 1720, label: 'J'},
+    {value: 2655, label: 'V', frontColor: '#177AD5'},
+    {value: 1680, label: 'S'},
+    {value: 1710, label: 'D'},
+  ];
+
+  const data2 = [ {value:20, text: 'Poisson', fontWeight: 'bold', labelPosition: 'outward', textColor: 'black'}, {value:45, text: 'Légumes', fontWeight: 'bold', labelPosition: 'outward', textColor: 'black'}, {value:20, text: 'Fruits', fontWeight: 'bold', labelPosition: 'outward', textColor: 'black'}, {value:15, text: 'Viande', fontWeight: 'bold', labelPosition: 'outward', textColor: 'black'} ];
+
+  const lineData = [
+  {value:0, label:'0'},
+  {value:12, label:'1'},
+  {value:19, label:'2'},
+  {value:23, label:'3'},
+  {value:21, label:'4'},  ];
+
+
     return (
       <ScrollView>
         <View style={styles.yM}>
@@ -71,7 +93,7 @@ export default class Home extends Component {
           <TouchableOpacity onPress={() => this.props.navigation.navigate('ModifProfile', {email : this.state.email, birthdate : this.state.birthdate})} style={styles.buttonconfirm}>
             <Text style={{color: "#38CA40"}}>Changes Informations</Text>
           </TouchableOpacity>
-          <Text style={styles.recettefav}>VOS RECETTES FAVORITES</Text>
+          <Text style={styles.recettefav}>KCAL Journaliers (par semaine)</Text>
           {this.state.recettefav.map((item, index) => <View style={{
             flexDirection: "row",
             paddingLeft : 30,
@@ -80,8 +102,52 @@ export default class Home extends Component {
             marginRight : 30,
             borderWidth : 1,
             borderRadius : 20
-          }}><TouchableOpacity onPress={() => this.props.navigation.navigate('Recettes', item.id)}><Image style={styles.tinyLogo}
-          source={{uri : item.image}}/></TouchableOpacity><Text style={styles.yM} key={index}>{item.name}</Text><Icon name="delete" size={25} /></View>)}
+          }}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Recettes', item.id)}>
+          <Image style={styles.tinyLogo}
+          source={{uri : item.image}}/>
+          </TouchableOpacity><Text style={styles.yM} key={index}>{item.name}
+          </Text>
+          <Icon name="delete" size={25} />
+          </View>)}
+          <View>
+          <BarChart
+               barWidth={15}
+               barHeight={16}
+               noOfSections={3}
+               barBorderRadius={4}
+               frontColor="red"
+               data={data}
+               yAxisThickness={0}
+               xAxisThickness={0}
+          />
+          </View>
+
+          <Text style={styles.recettefav}>{'\n'}Aliments du mois</Text>
+
+          <View>
+          <PieChart data = {data2}
+            showText='true'
+            focusOnPress
+            showValuesAsLabels
+          />
+          </View>
+
+          <Text style={styles.recettefav}>Animaux sauvés (/mois)</Text>
+
+          <View style={{maginLeft: 13}}>
+          <LineChart
+          width={280}
+       areaChart
+       data={lineData}
+       startFillColor="rgb(46, 217, 255)"
+        startOpacity={0.8}
+        endFillColor="rgb(203, 241, 250)"
+        endOpacity={0.3}
+        />
+          </View>
+          <Text>{'\n'}</Text>
+
           </View>
           <TouchableOpacity onPress={async () =>  {
               await AsyncStorage.removeItem('@token')
@@ -289,13 +355,13 @@ const styles = StyleSheet.create({
       elevation: 6,
     },
     buttonconfirm: {
-      width: 140,
+      width: 200,
       height: 30,
       backgroundColor: '#FFFFFF',
       borderRadius: 20,
       borderWidth: 1,
       marginTop: 19,
-  
+
       borderColor: "#38CA40",
       alignItems: 'center',
       justifyContent: 'center',

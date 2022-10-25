@@ -34,6 +34,7 @@
     "react-native-editable-list": "^1.0.3",
     "react-native-editable-table": "^1.0.0",
     "react-native-elements": "^3.4.2",
+    "react-native-gifted-charts": "^1.2.41",
     "react-native-multiple-select-list": "^1.0.4",
     "react-native-numeric-input": "^1.9.1",
     "react-native-picker-select": "^8.0.4",
