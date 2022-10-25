@@ -2,12 +2,13 @@ import React, { useState, Component } from 'react'
 import { StyleSheet, View, FlatList, Button, Text, ActivityIndicator, Image, ScrollView, Switch, Alert, TouchableOpacity, ScrollViewBase } from 'react-native'
 import {getStatusBarHeight} from "react-native-status-bar-height";
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class AccueilBonPlan extends Component {
     constructor(props) {
       super(props);
-      this.state = {deals : [{img : "https://www.pngall.com/wp-content/uploads/7/Blender-PNG-Image-File.png", shop: "Moulinex", reduction : 10, description : "En ce moment le blender GX430 est en réduction sur le site Moulinex.fr", user: "Pedro65", price: "24,99€"},
-                            {img : "https://backend.panzani.fr/app/uploads/2020/03/paniers_associe.png", shop: "Carrefour", reduction : 33, description : "2 paquets de pâtes achetés = 1 offert jusqu'au 03/10/2022", user: "AliceParis", price: "2,99€"}]}};
+      this.state = {pressed: false, deals : [{click: false, click2:false, compteur: 0,img : "https://www.pngall.com/wp-content/uploads/7/Blender-PNG-Image-File.png", shop: "Moulinex", reduction : 10, description : "En ce moment le blender GX430 est en réduction sur le site Moulinex.fr", user: "Pedro65", price: "24,99€"},
+                            {click: false, click2:false, compteur: 0,img : "https://backend.panzani.fr/app/uploads/2020/03/paniers_associe.png", shop: "Carrefour", reduction : 33, description : "2 paquets de pâtes achetés = 1 offert jusqu'au 03/10/2022", user: "AliceParis", price: "2,99€"}]}};
     componentDidMount() {
       //     await axios.post('http://20.8.119.103:8080/connexionuser', { email: email, password: password}, {header: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json'}})
       //     .then(async res => {
@@ -30,7 +31,7 @@ export default class AccueilBonPlan extends Component {
                }
                keyExtractor={(item) => item.id}
                showsVerticalScrollIndicator={false}
-                renderItem={({item}) =>
+                renderItem={({item, index}) =>
                    <View key={item.id} style={{border: "solid",
                        borderWidth: "2px",
                        borderRadius: "21px",
@@ -48,6 +49,41 @@ export default class AccueilBonPlan extends Component {
                      />
                      <Text style={styles.bons}> {'\n'} {item.price}{'\n'}</Text>
                      <Text style={styles.desc}> {item.description} </Text>
+                     <View style={styles.box}>
+                <View style ={
+                  {flexDirection : "row", 
+                padding : 10}
+                }>
+                <TouchableOpacity
+                onPress={() =>  {
+                  let array2 = this.state.deals;
+                  if (!array2[index].click)
+                      array2[index].compteur += 1;
+                  array2[index].click = true
+                  array2[index].click2 = false
+                  this.setState({deals : array2})
+                  console.log(this.state.deals)
+                  }}>
+                <Icon name="thumbs-up" size={30} style={item.click ? styles.icon : styles.iconalt} />
+                {/* <Icon name="thumbs-up" size={30} style={[this.state.pressed ? styles.icon : styles.iconalt]} /> */}
+                </TouchableOpacity>
+                <Text style={{marginTop : 8}}>{item.compteur}</Text>
+                <TouchableOpacity
+                onPress={() =>  {
+                  let array2 = this.state.deals;
+                  if (!array2[index].click2)
+                      array2[index].compteur -= 1;
+                  array2[index].click2 = true
+                  array2[index].click = false
+                  this.setState({deals : array2})
+                  console.log(this.state.deals)
+                  }}
+                  >
+                <Icon name="thumbs-down" size={30} style={item.click2 ? styles.icon2 : styles.iconalt} />
+                {/* <Icon name="thumbs-down" size={30} style={[this.state.pressed ? styles.icon2 : styles.iconalt]} /> */}
+                </TouchableOpacity>
+                </View>
+               </View>
                      <TouchableOpacity onPress={() => {this.props.navigation.navigate('Selectionned', {remise : item.reduction})}} style={styles.button}>
                        <Text style={{color: "#fff"}}>Voir l'offre</Text>
                      </TouchableOpacity>
@@ -60,7 +96,7 @@ export default class AccueilBonPlan extends Component {
                 }
               />
             </View>
-     )
+      )
     }
   }
 
@@ -124,6 +160,21 @@ const styles = StyleSheet.create({
       flex: 1,
       marginTop: 30,
       marginLeft: 40
+    },
+    iconalt: {
+      marginRight: 10,
+      marginLeft : 10,
+      color: "black"
+    },
+    icon: {
+      marginRight: 10,
+      marginLeft : 10,
+      color: "green"
+    },
+    icon2: {
+      marginRight: 10,
+      marginLeft : 10,
+      color: "red"
     },
     yProfile: {
       fontSize: 20,

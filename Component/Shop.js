@@ -97,35 +97,6 @@ export default class Shop extends Component {
                 <Text style={{color: "#fff"}}>Séléctionner</Text>
               </TouchableOpacity>
               <Text> {'\n'} {'\n'} </Text>
-               <View style={styles.box}>
-                <TouchableOpacity
-                onPress={() =>  {
-                  let array2 = this.state.shop;
-                  if (!array2[i].click)
-                      array2[i].compteur += 1;
-                  array2[i].click = true
-                  array2[i].click2 = false
-                  this.setState({shop : array2})
-                  }}>
-                <Icon name="thumbs-up" size={30} style={item.click ? styles.icon : styles.iconalt} />
-                {/* <Icon name="thumbs-up" size={30} style={[this.state.pressed ? styles.icon : styles.iconalt]} /> */}
-                </TouchableOpacity>
-                <Text>{item.compteur}</Text>
-                <TouchableOpacity
-                onPress={() =>  {
-                  let array2 = this.state.shop;
-                  if (!array2[i].click2)
-                      array2[i].compteur -= 1;
-                  array2[i].click2 = true
-                  array2[i].click = false
-                  this.setState({shop : array2})
-                  }}
-                  >
-                <Icon name="thumbs-down" size={30} style={item.click2 ? styles.icon2 : styles.iconalt} />
-                {/* <Icon name="thumbs-down" size={30} style={[this.state.pressed ? styles.icon2 : styles.iconalt]} /> */}
-                </TouchableOpacity>
-
-               </View>
             </TouchableOpacity>
                )}
           </View>
