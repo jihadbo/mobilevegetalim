@@ -37,7 +37,7 @@ export default class Home extends Component {
                 console.log(value);
               await axios.post('http://20.8.119.103:8080/FiltreRecette', { filtre: "id",  valfiltre: value}, {header: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json'}})
               .then(res => {
-                if (res.data.recettes){ 
+                if (res.data.recettes){
                   tester.push(res.data.recettes[0]);
                   this.setState({recettefav : tester})
                 }
@@ -59,8 +59,8 @@ export default class Home extends Component {
           <Text style={styles.yProfile}>{'\n'}Voulez vous confirmer le choix de ce bon d'achat ?{'\n'}{'\n'}{'\n'}{'\n'}{'\n'}{'\n'}</Text>
           <View style={styles.confirm}>
             <Image
-              style={{width: '80%', height: 100}}
-              source={{uri:'https://upload.wikimedia.org/wikipedia/fr/9/9e/Logo_Biocoop2018.png'}}
+              style={{width: 300, height: 100}}
+              source={{uri:'https://www.lacolleraye.fr/wp-content/uploads/Logo-Biocoop.png'}}
             />
             <Text style={styles.yProfile}>{'\n'} -{this.props.route.params.remise}% sur tous la articles en échange de {this.props.route.params.remise * 10} points{'\n'}</Text>
             <TouchableOpacity onPress={() => {this.props.navigation.navigate('Confirmed', {remise : this.props.route.params.remise})}} style={styles.buttonConfirm}>
@@ -90,24 +90,17 @@ const styles = StyleSheet.create({
             padding : 20
           },
       buttonConfirm: {
-    width: 250,
-    height: 30,
-    backgroundColor: '#4FEE7B',
-    borderRadius: 5,
-    borderWidth: 1,
-    marginTop: 20,
-    marginBottom: 10,
-    borderColor: "#777",
-    alignItems: 'center',
-    justifyContent: 'center',
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+        width: 160,
+        height: 30,
+        backgroundColor: '#8ECF6F',
+        borderRadius: 20,
+        marginTop: 20,
+        marginBottom: 10,
+        borderColor: "#777",
+        alignItems: 'center',
+        justifyContent: 'center',
+        shadowColor: "#000",
+        elevation: 6,
   },
 confirm: {
             justifyContent: 'center',
@@ -316,7 +309,7 @@ confirm: {
       borderRadius: 20,
       borderWidth: 1,
       marginTop: 19,
-  
+
       borderColor: "#38CA40",
       alignItems: 'center',
       justifyContent: 'center',

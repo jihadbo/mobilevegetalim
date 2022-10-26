@@ -43,23 +43,16 @@ const styles = StyleSheet.create({
         color: "#326ed5",
       },
       button: {
-        width: 250,
+        width: 160,
         height: 30,
-        backgroundColor: '#326ed5',
-        borderRadius: 5,
-        borderWidth: 1,
+        backgroundColor: '#8ECF6F',
+        borderRadius: 20,
         marginTop: 20,
         marginBottom: 10,
         borderColor: "#777",
         alignItems: 'center',
         justifyContent: 'center',
         shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.27,
-        shadowRadius: 4.65,
         elevation: 6,
       },
       buttonC: {
@@ -111,7 +104,10 @@ export default function SignIn ({ navigation }) {
             <Text style={{color: "#fff"}}>ADMIN</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate('AddBonPlan')} style={styles.buttonC}>
-            <Text style={{color: "#fff"}}>AddBonPlan</Text>
+            <Text style={{color: "#fff"}}>Ajouter bon plan</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Points', {point : 70,pointpos : 150 })} style={styles.buttonC}>
+            <Text style={{color: "#fff"}}>Pas assez points</Text>
           </TouchableOpacity>
         </View>);
 }

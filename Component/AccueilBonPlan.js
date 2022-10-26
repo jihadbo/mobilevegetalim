@@ -33,14 +33,15 @@ export default class AccueilBonPlan extends Component {
                showsVerticalScrollIndicator={false}
                 renderItem={({item, index}) =>
                    <View key={item.id} style={{border: "solid",
-                       borderWidth: "2px",
                        borderRadius: "21px",
+                       borderTopWidth: 1,
+                       borderBottomWidth: 1,
                        borderColor: "black",
                        padding : "3%",
-                       paddingTop : "1%",
                        justifyContent: 'center',
                        alignItems: 'center',
                        marginBottom : 50,
+                       marginTop: 20
                    }}>
                      <Text style={styles.bons}> {item.shop} {'\n'} </Text>
                      <Text style={styles.bons}>-{item.reduction}% {'\n'}</Text>
@@ -51,7 +52,7 @@ export default class AccueilBonPlan extends Component {
                      <Text style={styles.desc}> {item.description} </Text>
                      <View style={styles.box}>
                 <View style ={
-                  {flexDirection : "row", 
+                  {flexDirection : "row",
                 padding : 10}
                 }>
                 <TouchableOpacity
@@ -85,7 +86,7 @@ export default class AccueilBonPlan extends Component {
                 </View>
                </View>
                      <TouchableOpacity onPress={() => {this.props.navigation.navigate('Selectionned', {remise : item.reduction})}} style={styles.button}>
-                       <Text style={{color: "#fff"}}>Voir l'offre</Text>
+                       <Text style={{color: "#8ECF6F"}}>Voir l'offre</Text>
                      </TouchableOpacity>
                      {/* <Rating
                        showRating
@@ -255,7 +256,6 @@ const styles = StyleSheet.create({
         fontSize: 25,
         justifyContent: 'center',
         alignItems: 'center',
-        color: '#1D2D51',
         fontWeight: 'bold',
     },
     logo: {
@@ -282,23 +282,17 @@ const styles = StyleSheet.create({
       marginBottom: 15
     },
     button: {
-      width: 250,
+      width: 160,
       height: 30,
-      backgroundColor: '#326ed5',
-      borderRadius: 5,
+      backgroundColor: '#F7F7F7',
       borderWidth: 1,
+      borderColor: '#8ECF6F',
+      borderRadius: 20,
       marginTop: 20,
       marginBottom: 10,
-      borderColor: "#777",
       alignItems: 'center',
       justifyContent: 'center',
       shadowColor: "#000",
-      shadowOffset: {
-          width: 0,
-          height: 3,
-      },
-      shadowOpacity: 0.27,
-      shadowRadius: 4.65,
       elevation: 6,
     },
     buttonSS: {

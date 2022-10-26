@@ -25,6 +25,7 @@ import Quizz from './Component/Quizz';
 import { LogBox } from 'react-native';
 import AdminSignIn from './Component/AdminSignIn'
 import Admin from './Component/Admin'
+import Points from './Component/Points'
 
 LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state',
@@ -48,7 +49,7 @@ function MyTabs() {
           ),
         }}
       />
-      <Tab.Screen name="Shop" component={Shop} 
+      <Tab.Screen name="Shop" component={Shop}
         options={{
           tabBarLabel: 'Shop',
           tabBarIcon: ({ color, size }) => (
@@ -56,7 +57,7 @@ function MyTabs() {
           ),
         }}
       />
-      <Tab.Screen name="Newsletter" component={Newsletter} 
+      <Tab.Screen name="Newsletter" component={Newsletter}
         options={{
           tabBarLabel: 'Newsletter',
           tabBarIcon: ({ color, size }) => (
@@ -104,6 +105,10 @@ export default function App() {
             <Stack.Screen
               name="Calories"
               component={Calories}
+            />
+            <Stack.Screen
+              name="Points"
+              component={Points}
             />
             <Stack.Screen name="StepByStep" component={StepByStepModal} />
           <Stack.Screen name="Quizz" component={Quizz} />

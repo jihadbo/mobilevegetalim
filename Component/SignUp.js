@@ -48,23 +48,16 @@ const styles = StyleSheet.create({
         width: 230,
       },
       button: {
-        width: 250,
+        width: 160,
         height: 30,
-        backgroundColor: '#326ed5',
-        borderRadius: 5,
-        borderWidth: 1,
+        backgroundColor: '#8ECF6F',
+        borderRadius: 20,
         marginTop: 20,
         marginBottom: 10,
         borderColor: "#777",
         alignItems: 'center',
         justifyContent: 'center',
         shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowOpacity: 0.27,
-        shadowRadius: 4.65,
         elevation: 6,
       },
     info: {
@@ -154,11 +147,7 @@ export default function SignUp({ navigation }) {
             {/* onPress={navigationRef.navigate('SignIn')} */}
             <TouchableOpacity onPress={() => navigation.navigate('SignIn')}><Text style={styles.signC}>Connectez-vous</Text></TouchableOpacity>
           </View>
-          <TouchableOpacity onPress={() => navigation.navigate('Conversion')} style={styles.button}>
-        <Text style={{color: "#fff"}}>Conversion</Text>
-      </TouchableOpacity>
         <GoogleSocialButton onPress={() => navigation.navigate('Webview', {url : 'https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=260750013099-p1f5oukdqhvc59agmmsvof8ri15k5ga2.apps.googleusercontent.com&redirect_uri=http%3A%2F%2Ftestapivegetalim.westeurope.cloudapp.azure.com%3A8080%2FOauthPage&response_type=code&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&access_type=offline&prompt=consent&flowName=GeneralOAuthFlow'})}/>
           <DiscordSocialButton onPress={() => navigation.navigate('Webview', {url : "https://discord.com/oauth2/authorize?client_id=966021079934042192&redirect_uri=http://testapivegetalim.westeurope.cloudapp.azure.com:8080/OauthPage&response_type=token&scope=email"})}/>
         </View>);
   }
-  

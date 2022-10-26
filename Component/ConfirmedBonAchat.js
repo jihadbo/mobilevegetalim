@@ -38,7 +38,7 @@ export default class Home extends Component {
                 console.log(value);
               await axios.post('http://20.8.119.103:8080/FiltreRecette', { filtre: "id",  valfiltre: value}, {header: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=UTF-8;application/json'}})
               .then(res => {
-                if (res.data.recettes){ 
+                if (res.data.recettes){
                   tester.push(res.data.recettes[0]);
                   this.setState({recettefav : tester})
                 }
@@ -60,7 +60,7 @@ export default class Home extends Component {
             <Text style={styles.yProfile}>{'\n'}Bon d'achat acquis avec succès !{'\n'}{'\n'}{'\n'}</Text>
               <Image
                 style={{width: '80%', height: 100}}
-                source={{uri:'https://upload.wikimedia.org/wikipedia/fr/9/9e/Logo_Biocoop2018.png'}}
+                source={{uri:'https://www.lacolleraye.fr/wp-content/uploads/Logo-Biocoop.png'}}
               />
               <Text style={styles.yProfile}>{'\n'}-{this.props.route.params.remise}% sur tous la articles en échange de {this.props.route.params.remise * 10} points{'\n'}</Text>
               <Text> Vous avez utilisez {this.props.route.params.remise * 10} points, il vous reste donc {1000 - this.props.route.params.remise * 10} points à utiliser dans notre boutique</Text>
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       borderWidth: 1,
       marginTop: 19,
-  
+
       borderColor: "#38CA40",
       alignItems: 'center',
       justifyContent: 'center',

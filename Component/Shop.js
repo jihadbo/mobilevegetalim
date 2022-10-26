@@ -291,23 +291,16 @@ const styles = StyleSheet.create({
       marginBottom: 15
     },
     button: {
-      width: 250,
+      width: 160,
       height: 30,
-      backgroundColor: '#326ed5',
-      borderRadius: 5,
-      borderWidth: 1,
+      backgroundColor: '#8ECF6F',
+      borderRadius: 20,
       marginTop: 20,
       marginBottom: 10,
       borderColor: "#777",
       alignItems: 'center',
       justifyContent: 'center',
       shadowColor: "#000",
-      shadowOffset: {
-          width: 0,
-          height: 3,
-      },
-      shadowOpacity: 0.27,
-      shadowRadius: 4.65,
       elevation: 6,
     },
     buttonSS: {
