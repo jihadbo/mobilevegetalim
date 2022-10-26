@@ -110,5 +110,8 @@ export default function SignIn ({ navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate('AdminSignIn')} style={styles.buttonC}>
             <Text style={{color: "#fff"}}>ADMIN</Text>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('AddBonPlan')} style={styles.buttonC}>
+            <Text style={{color: "#fff"}}>AddBonPlan</Text>
+          </TouchableOpacity>
         </View>);
 }

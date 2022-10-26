@@ -76,17 +76,16 @@ export default function AddBonPlan ({ navigation }) {
     }
     return (
             <View style={styles.logs}>
-          <Text style={styles.text1}>Ajouter un Bon Plan</Text>
-          <TextInput style={styles.input2} placeholder="Name" value={shop} onChangeText={setShop}/>
-          <TextInput style={styles.input} multiline={true} placeholder="Description" value={description} onChangeText={setDescription}/>
-          <TextInput style={styles.input2} placeholder="Prix" value={price} onChangeText={setPrice}/>
-          <TextInput style={styles.input2} keyboardType="numeric" placeholder="Réduction (%)" value={reduction} onChangeText={setReduction}/>
-          <TextInput style={styles.input2} placeholder="Photo" value={photo} onChangeText={setPhoto}/>
-          <TextInput style={styles.input2} placeholder="Lien" value={link} onChangeText={setLink}/>
-
-          <TouchableOpacity style={styles.button}>
-            <Text style={{color: "#fff"}}>Publier</Text>
-          </TouchableOpacity>
+            <Text style={styles.text1}>Ajouter un Bon Plan</Text>
+            <TextInput style={styles.input2} placeholder="Name" value={shop} onChangeText={setShop}/>
+            <TextInput style={styles.input} multiline={true} placeholder="Description" value={description} onChangeText={setDescription}/>
+            <TextInput style={styles.input2} placeholder="Prix" value={price} onChangeText={setPrice}/>
+            <TextInput style={styles.input2} keyboardType="numeric" placeholder="Réduction (%)" value={reduction} onChangeText={setReduction}/>
+            <TextInput style={styles.input2} placeholder="Photo" value={photo} onChangeText={setPhoto}/>
+            <TextInput style={styles.input2} placeholder="Lien" value={link} onChangeText={setLink}/>
+            <TouchableOpacity style={styles.button}>
+              <Text style={{color: "#fff"}}>Publier</Text>
+            </TouchableOpacity>
         </View>
     );
 }
