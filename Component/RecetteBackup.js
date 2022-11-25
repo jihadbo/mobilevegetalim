@@ -12,7 +12,6 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { getStatusBarHeight } from 'react-native-status-bar-height';
 import Icon from 'react-native-dynamic-vector-icons';
-import StarReview from 'react-native-star-review';
 
 export default class ModifProfile extends React.Component {
   constructor(props) {

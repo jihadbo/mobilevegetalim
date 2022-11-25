@@ -4,7 +4,6 @@ import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import AllRecette from './AllRecette';
-import { render } from 'react-dom';
 import {getStatusBarHeight} from "react-native-status-bar-height";
 // import { Icon } from "@rneui/themed";
 // import {thumbs-up} from 'react-native-vector-icons/FontAwesome';
