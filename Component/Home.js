@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect }  from 'react';
 import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator, Image, ScrollView, Switch, Alert, TouchableOpacity } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
-
+import TapBar from './TapBar';
 export default function Home({navigation}) {
   const data = [{img : "https://www.pngall.com/wp-content/uploads/7/Blender-PNG-Image-File.png", shop: "Moulinex", reduction : 10, description : "En ce moment le blender GX430 est en réduction sur le site Moulinex.fr", user: "Pedro65", price: "24,99€"},
           {img : "https://backend.panzani.fr/app/uploads/2020/03/paniers_associe.png", shop: "Carrefour", reduction : 33, description : "2 paquets de pâtes achetés = 1 offert jusqu'au 03/10/2022", user: "AliceParis", price: "2,99€"}];
@@ -32,21 +32,7 @@ export default function Home({navigation}) {
 
     return(
       <View style={{flex: 1}}>
-        <View style={styles.top}>
-          <TouchableOpacity onPress={() => navigation.navigate('Conversion')} style={styles.profileButton}>
-            <Image
-            style={{width: 30, height: 30}}
-            source={{uri:'https://www.citypng.com/public/uploads/small/11663778115jz3pmhao8azwk5bnorhav9skgqsrptxel8tveqrc8xx6kg0zxzcslqsvm3mmlubfg3vkcd7nxwlw4v0ypcvfirv39s9qqbyhfu2g.png'}}
-            />
-          </TouchableOpacity>
-          <Text style={styles.topText}>Veget'Alim</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('SignIn')} style={styles.profileButton}>
-            <Image
-            style={{width: 30, height: 30}}
-            source={{uri:'https://icon-library.com/images/white-profile-icon/white-profile-icon-6.jpg'}}
-            />
-          </TouchableOpacity>
-        </View>
+        <TapBar navigation={navigation}/>
         <View style={styles.recettes}>
           <View style={{borderColor: '#515151', borderBottomWidth: 1, borderTopWidth: 1}}>
             <Text style={styles.recettesText}> {'\n'}🔥 Recettes en tendance 🔥{'\n'}</Text>

@@ -3,7 +3,7 @@ import { StyleSheet, View, FlatList, Button, Text, ActivityIndicator, Image, Scr
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import AllRecette from './AllRecette';
+import TapBar from './TapBar';
 import {getStatusBarHeight} from "react-native-status-bar-height";
 // import { Icon } from "@rneui/themed";
 // import {thumbs-up} from 'react-native-vector-icons/FontAwesome';
@@ -58,6 +58,7 @@ export default class Shop extends Component {
     render() {
     return (
         <ScrollView style={styles.container}>
+        <TapBar navigation={this.props.navigation}/>
             <View style={styles.row}>
             <Text>1000 points disponible{'\n'}</Text>
               <View style={styles.center}>
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     container : {
-        paddingTop: getStatusBarHeight(),
+        // paddingTop: getStatusBarHeight(),
       },
       box : {
         // backgroundColor: 'blue',

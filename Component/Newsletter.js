@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, TextInput, Button, Text, FlatList, ActivityIndicator, Image, ScrollView, Switch, Alert, TouchableOpacity } from 'react-native'
+import TapBar from './TapBar';
 
-export default function Newsletter() {
+export default function Newsletter({navigation}) {
   return (<>
+    <TapBar navigation={navigation}/>
     <View style={styles.container}>
       <Text style={styles.paragraph}>
         Newsletter
