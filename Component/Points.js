@@ -1,8 +1,5 @@
 import React, { useState, Component } from 'react'
 import { StyleSheet, View, FlatList, Button, Text, ActivityIndicator, Image, ScrollView, Switch, Alert, TouchableOpacity, ScrollViewBase } from 'react-native'
-import {getStatusBarHeight} from "react-native-status-bar-height";
-import { Rating, AirbnbRating } from 'react-native-ratings';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class Points extends Component {
     constructor(props) {

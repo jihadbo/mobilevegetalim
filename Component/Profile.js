@@ -70,7 +70,7 @@ export default class Home extends Component {
 
 
     return (
-      <ScrollView>
+      <View>
         <View style={styles.yM}>
           <Text style={styles.yProfile}>YOUR PROFILE</Text>
           <Text style={styles.mDetail}>My Details</Text>
@@ -155,7 +155,7 @@ export default class Home extends Component {
             <Text style={{color: "#D32D35"}}>LOG OUT</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+      </View>
     );}
   }
 

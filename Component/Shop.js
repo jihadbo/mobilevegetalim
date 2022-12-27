@@ -58,15 +58,16 @@ export default class Shop extends Component {
     render() {
     return (
         <ScrollView style={styles.container}>
-           <View style={styles.row}>
-             <View style={styles.center}>
+            <View style={styles.row}>
+            <Text>1000 points disponible{'\n'}</Text>
+              <View style={styles.center}>
                <Text style={styles.boutique}>Boutique</Text>
              </View>
-             <View style={{display : 'grid'}}>
+             {/* <View style={{display : 'grid'}}> */}
              <Text style={styles.yProfile}>Bons disponibles</Text>
-             <View style={{border: "solid",
-                    borderWidth: "2px",
-                    borderRadius: "21px",
+             <TouchableOpacity style={{border: "solid",
+                    borderWidth: 2,
+                    borderRadius: 21,
                     borderColor: "black",
                     width : 120,
                     marginBottom : "2%",
@@ -74,12 +75,12 @@ export default class Shop extends Component {
                     padding : "2%",
                     justifyContent: 'center',
                     alignItems: 'center',
-                }}><Text>1000 points disponible{'\n'}</Text></View>
-              </View>
-              {this.state.shop.map((item,i) =>
+                }}><Text>1000 points disponible{'\n'}</Text></TouchableOpacity>
+              {/* </View> */}
+               {this.state.shop.map((item,i) =>
                 <TouchableOpacity key={i} style={{border: "solid",
-                borderWidth: "2px",
-                borderRadius: "21px",
+                borderWidth: 2,
+                borderRadius: 21,
                 borderColor: "black",
                 padding : "3%",
                 paddingTop : "12%",
@@ -98,7 +99,7 @@ export default class Shop extends Component {
               <Text> {'\n'} {'\n'} </Text>
             </TouchableOpacity>
                )}
-          </View>
+          </View> 
         </ScrollView>
     );}
   }
